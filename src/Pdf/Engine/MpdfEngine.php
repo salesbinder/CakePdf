@@ -33,9 +33,20 @@ class MpdfEngine extends AbstractPdfEngine
 
         $Mpdf = $this->_createInstance($options);
 
-        // Added support for proper Mpdf headers and footers
-        if (isset($options['header'])) $Mpdf->setHeader($options['header']);
-    		if (isset($options['footer'])) $Mpdf->setFooter($options['footer']);
+        if (!empty($options['header']))
+          $Mpdf->SetFooter($options['header']);
+
+        if (!empty($options['htmlHeader']))
+          $Mpdf->SetHTMLHeader($options['htmlHeader']);
+
+        if (!empty($options['footer']))
+          $Mpdf->SetFooter($options['footer']);
+
+        if (!empty($options['htmlFooter']))
+          $Mpdf->SetHTMLFooter($options['htmlFooter']);
+
+        if (!empty($options['javascript']))
+          $Mpdf->SetJS($options['javascript']);
 
         $Mpdf->WriteHTML($this->_Pdf->html());
 
